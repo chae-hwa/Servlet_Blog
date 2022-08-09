@@ -3,6 +3,9 @@ package com.example.sbb;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -92,5 +95,23 @@ public class MainController {
             case "홍길순" -> "ISTJ";
             default -> "모름";
         };
+    }
+
+    @GetMapping("/saveSession/{name}/{value}")
+    @ResponseBody
+    public String saveSession(@PathVariable String name, @PathVariable String value, HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        
+        session.setAttribute(name, value);
+
+        return "세션 변수 %s의 값이 %s(으)로 설정되었습니다.".formatted(name, value);
+    }
+
+    @GetMapping("/getSession/{name}")
+    @ResponseBody
+    public String getSession(@PathVariable String name, HttpSession session) {
+        String value = (String) session.getAttribute(name);
+
+        return "세션 변수 %s의 값이 %s입니다.".formatted(name, value);
     }
 }
