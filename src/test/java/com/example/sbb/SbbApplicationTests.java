@@ -74,4 +74,14 @@ class SbbApplicationTests {
         q.setSubject("수정된 제목");
         this.questionRepository.save(q);
     }
+
+    @Test
+    void testJpa7() {
+        assertEquals(2, this.questionRepository.count());
+        Optional<Question> oq = this.questionRepository.findById(1);
+        assertTrue(oq.isPresent());
+        Question q = oq.get();
+        this.questionRepository.delete(q);
+        assertEquals(1, this.questionRepository.count());
+    }
 }
