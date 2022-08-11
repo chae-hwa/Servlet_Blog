@@ -7,26 +7,22 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-class QuestionRepositoryTests {
-
+public class QuestionRepositoryTests {
     @Autowired
     private QuestionRepository questionRepository;
     private static int lastSampleDataId;
 
     @BeforeEach
-    void brforeEach(){
+    void beforeEach() {
         clearData();
         createSampleData();
     }
 
-    private void createSampleData() {
+    public static int createSampleData(QuestionRepository questionRepository) {
         Question q1 = new Question();
         q1.setSubject("sbb가 무엇인가요?");
         q1.setContent("sbb에 대해서 알고 싶습니다.");
@@ -39,17 +35,25 @@ class QuestionRepositoryTests {
         q2.setCreateDate(LocalDateTime.now());
         questionRepository.save(q2);
 
-        lastSampleDataId = q2.getId();
+        return q2.getId();
     }
 
-    private void clearData() {
+    private void createSampleData() {
+        lastSampleDataId = createSampleData(questionRepository);
+    }
+
+    public static void clearData(QuestionRepository questionRepository) {
         questionRepository.disableForeignKeyChecks();
         questionRepository.truncate();
         questionRepository.enableForeignKeyChecks();
     }
 
+    private void clearData() {
+        clearData(questionRepository);
+    }
+
     @Test
-    void 저장(){
+    void 저장() {
         Question q1 = new Question();
         q1.setSubject("sbb가 무엇인가요?");
         q1.setContent("sbb에 대해서 알고 싶습니다.");
@@ -67,12 +71,12 @@ class QuestionRepositoryTests {
     }
 
     @Test
-    void 삭제(){
+    void 삭제() {
         assertThat(questionRepository.count()).isEqualTo(lastSampleDataId);
 
-        Question q  = this.questionRepository.findById(1).get();
-
+        Question q = this.questionRepository.findById(1).get();
         questionRepository.delete(q);
+
         assertThat(questionRepository.count()).isEqualTo(lastSampleDataId - 1);
     }
 
