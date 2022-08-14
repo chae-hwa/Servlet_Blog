@@ -1,6 +1,9 @@
 package com.example.sbb;
 
-import com.example.sbb.*;
+import com.example.sbb.answer.Answer;
+import com.example.sbb.answer.AnswerRepository;
+import com.example.sbb.question.Question;
+import com.example.sbb.question.QuestionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
