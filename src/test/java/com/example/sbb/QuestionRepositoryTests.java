@@ -2,6 +2,7 @@ package com.example.sbb;
 
 import com.example.sbb.question.Question;
 import com.example.sbb.question.QuestionRepository;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,8 @@ public class QuestionRepositoryTests {
         lastSampleDataId = createSampleData(questionRepository);
     }
 
-    public static void clearData(QuestionRepository questionRepository) {
+    public static void clearData(@NotNull QuestionRepository questionRepository) {
+        questionRepository.deleteAll(); // DELETE FROM question;
         questionRepository.truncateTable();
     }
 
