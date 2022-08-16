@@ -199,7 +199,10 @@ public class MainController {
         return p;
     }
 
-
+    @RequestMapping("/")
+    public String root(){
+        return "redirect:/question/list";
+    }
 }
 
 @AllArgsConstructor
