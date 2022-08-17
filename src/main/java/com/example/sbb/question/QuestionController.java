@@ -3,8 +3,10 @@ package com.example.sbb.question;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -41,13 +43,16 @@ public class QuestionController {
     }
 
     @GetMapping("/create")
-    public String questionCreate(){
+    public String questionCreate(QuestionForm questionForm){
         return "question_form";
     }
 
     @PostMapping("/create")
-    public String questionCreate(@RequestParam String subject, @RequestParam String content ){
-        questionService.create(subject, content);
+    public String questionCreate(Model model, @Valid QuestionForm questionForm, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "question_form";
+        }
+        questionService.create(questionForm.getSubject(), questionForm.getContent());
         return "redirect:/question/list";
     }
 }
