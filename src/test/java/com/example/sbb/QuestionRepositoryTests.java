@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class QuestionRepositoryTests {
     @Autowired
     private QuestionRepository questionRepository;
-    private static int lastSampleDataId;
+    private static long lastSampleDataId;
 
     @BeforeEach
     void beforeEach() {
@@ -31,7 +31,7 @@ public class QuestionRepositoryTests {
         createSampleData();
     }
 
-    public static int createSampleData(QuestionRepository questionRepository) {
+    public static long createSampleData(QuestionRepository questionRepository) {
         Question q1 = new Question();
         q1.setSubject("sbb가 무엇인가요?");
         q1.setContent("sbb에 대해서 알고 싶습니다.");
@@ -82,7 +82,7 @@ public class QuestionRepositoryTests {
     void 삭제() {
         assertThat(questionRepository.count()).isEqualTo(lastSampleDataId);
 
-        Question q = this.questionRepository.findById(1).get();
+        Question q = this.questionRepository.findById(1L).get();
         questionRepository.delete(q);
 
         assertThat(questionRepository.count()).isEqualTo(lastSampleDataId - 1);
@@ -90,11 +90,11 @@ public class QuestionRepositoryTests {
 
     @Test
     void 수정() {
-        Question q = this.questionRepository.findById(1).get();
+        Question q = this.questionRepository.findById(1L).get();
         q.setSubject("수정된 제목");
         questionRepository.save(q);
 
-        q = this.questionRepository.findById(1).get();
+        q = this.questionRepository.findById(1L).get();
 
         assertThat(q.getSubject()).isEqualTo("수정된 제목");
     }

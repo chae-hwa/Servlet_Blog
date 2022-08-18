@@ -27,7 +27,7 @@ public class QuestionService {
         return this.questionRepository.findAll(pageable);
     }
 
-    public Question getQuestion(Integer id){
+    public Question getQuestion(long id){
         Optional<Question> oq = this.questionRepository.findById(id);
         if(oq.isPresent()){
             return oq.get();
