@@ -115,6 +115,15 @@ public class QuestionRepositoryTests {
     }
 
     @Test
+    void findAllPageable() {
+        // Pageble : 한 페이지에 몇개의 아이템이 나와야 하는지 + 현재 몇 페이지인지)
+        Pageable pageable = PageRequest.of(0, (int) lastSampleDataId);
+        Page<Question> page = questionRepository.findAll(pageable);
+
+        assertThat(page.getTotalPages()).isEqualTo(1);
+    }
+
+    @Test
     void findBySubjectAndContent() {
         Question q = questionRepository.findBySubjectAndContent(
                 "sbb가 무엇인가요?", "sbb에 대해서 알고 싶습니다.");
