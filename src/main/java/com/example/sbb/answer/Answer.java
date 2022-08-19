@@ -1,6 +1,7 @@
 package com.example.sbb.answer;
 
 import com.example.sbb.question.Question;
+import com.example.sbb.user.SiteUser;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -24,4 +25,7 @@ public class Answer {
 
     @ManyToOne
     private Question question;
+
+    @ManyToOne
+    private SiteUser author;
 }
