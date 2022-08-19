@@ -22,7 +22,6 @@ public class AnswerRepositoryTests {
     private QuestionRepository questionRepository;
     @Autowired
     private AnswerRepository answerRepository;
-    private int lastSampleDataId;
 
     @BeforeEach
     void beforeEach() {
@@ -30,11 +29,15 @@ public class AnswerRepositoryTests {
         createSampleData();
     }
 
-    private void clearData() {
+    public static void clearData(AnswerRepository answerRepository, QuestionRepository questionRepository) {
         QuestionRepositoryTests.clearData(questionRepository);
 
         answerRepository.deleteAll(); // DELETE FROM question;
         answerRepository.truncateTable();
+    }
+
+    private void clearData() {
+        clearData(answerRepository, questionRepository);
     }
 
     private void createSampleData() {
