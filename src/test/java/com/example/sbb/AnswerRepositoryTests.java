@@ -5,6 +5,7 @@ import com.example.sbb.answer.AnswerRepository;
 import com.example.sbb.question.Question;
 import com.example.sbb.question.QuestionRepository;
 import com.example.sbb.user.SiteUser;
+import com.example.sbb.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class AnswerRepositoryTests {
     private QuestionRepository questionRepository;
     @Autowired
     private AnswerRepository answerRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @BeforeEach
     void beforeEach() {
@@ -30,15 +33,12 @@ public class AnswerRepositoryTests {
         createSampleData();
     }
 
-    public static void clearData(AnswerRepository answerRepository, QuestionRepository questionRepository) {
-        QuestionRepositoryTests.clearData(questionRepository);
-
-        answerRepository.deleteAll(); // DELETE FROM question;
-        answerRepository.truncateTable();
+    public static void clearData(UserRepository userRepository, AnswerRepository answerRepository, QuestionRepository questionRepository) {
+        UserServiceTests.clearData(userRepository, answerRepository, questionRepository);
     }
 
     private void clearData() {
-        clearData(answerRepository, questionRepository);
+        clearData(userRepository, answerRepository, questionRepository);
     }
 
     private void createSampleData() {

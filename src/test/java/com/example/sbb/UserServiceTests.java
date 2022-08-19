@@ -1,17 +1,14 @@
 package com.example.sbb;
 
-import com.example.sbb.question.Question;
+import com.example.sbb.answer.AnswerRepository;
 import com.example.sbb.question.QuestionRepository;
 import com.example.sbb.user.UserRepository;
 import com.example.sbb.user.UserService;
-import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.time.LocalDateTime;
 
 @SpringBootTest
 public class UserServiceTests {
@@ -21,6 +18,11 @@ public class UserServiceTests {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private AnswerRepository answerRepository;
+
+    @Autowired
+    private QuestionRepository questionRepository;
 
     @BeforeEach
     void beforeEach() {
@@ -30,25 +32,31 @@ public class UserServiceTests {
 
     public static void createSampleData(UserService userService) {
         userService.create("admin", "admin@test.com", "1234");
+        userService.create("user1", "user1@test.com", "1234");
     }
 
     private void createSampleData() {
         createSampleData(userService);
     }
 
-    public static void clearData(UserRepository userRepository) {
-        userRepository.deleteAll(); // DELETE FROM question;
+    public static void clearData(UserRepository userRepository, AnswerRepository answerRepository, QuestionRepository questionRepository) {
+        answerRepository.deleteAll();
+        answerRepository.truncateTable();
+
+        questionRepository.deleteAll();
+        questionRepository.truncateTable();
+
+        userRepository.deleteAll();
         userRepository.truncateTable();
     }
 
     private void clearData() {
-        clearData(userRepository);
+        clearData(userRepository, answerRepository, questionRepository);
     }
-
 
     @Test
     @DisplayName("회원가입이 가능하다.")
     public void t1() {
-        userService.create("user1", "user1@email.com", "1234");
+        userService.create("user2", "user2@email.com", "1234");
     }
 }
