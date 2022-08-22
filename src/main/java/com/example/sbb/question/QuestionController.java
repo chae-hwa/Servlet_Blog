@@ -1,6 +1,8 @@
 package com.example.sbb.question;
 
 import com.example.sbb.answer.AnswerForm;
+import com.example.sbb.user.SiteUser;
+import com.example.sbb.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -17,6 +20,7 @@ import java.util.List;
 public class QuestionController {
     // @Autowired // 필드 주입
     private final QuestionService questionService;
+    private final UserService userService;
 
     @RequestMapping("/list")
     // 이 자리에 @ResponseBody가 없으면 resources/question_list/question_list.html 파일을 뷰로 삼는다.
@@ -50,11 +54,14 @@ public class QuestionController {
     }
 
     @PostMapping("/create")
-    public String questionCreate(Model model, @Valid QuestionForm questionForm, BindingResult bindingResult){
+    public String questionCreate(Principal principal, Model model, @Valid QuestionForm questionForm, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return "question_form";
         }
-        questionService.create(questionForm.getSubject(), questionForm.getContent());
+        
+        SiteUser siteUser = userService.getUser(principal.getName());
+        
+        questionService.create(questionForm.getSubject(), questionForm.getContent(), siteUser);
         return "redirect:/question/list";
     }
 }
