@@ -2,11 +2,12 @@ package com.example.sbb.question;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-@AllArgsConstructor
+@Setter
 @Getter
 public class QuestionForm {
     @NotEmpty(message = "제목은 필수 항목입니다.")

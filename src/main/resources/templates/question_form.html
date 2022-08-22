@@ -1,4 +1,3 @@
-
 <html
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         xmlns:th="http://thymeleaf.org"
@@ -6,11 +5,11 @@
 
 <div layout:fragment="content" class="container">
     <h5 class="my-3 border-bottom pb-2">질문등록</h5>
-    <form th:action="@{/question/create}" th:object="${questionForm}" method="post">
+    <form th:action="@{''}" th:object="${questionForm}" method="post">
         <div th:replace="form_errors :: formErrorsFragment"></div>
 
 
-    <form th:action="@{/question/create}" method="POST">
+        <form th:object="${questionForm}" method="post">
         <div class="mb-3">
             <label class="form-label">제목</label>
             <input type="text" th:field="*{subject}" class="form-control" placeholder="제목을 입력해주세요.">
