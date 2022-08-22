@@ -6,6 +6,7 @@ import com.example.sbb.question.Question;
 import com.example.sbb.question.QuestionRepository;
 import com.example.sbb.user.SiteUser;
 import com.example.sbb.user.UserRepository;
+import com.example.sbb.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class AnswerRepositoryTests {
     private AnswerRepository answerRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
 
     @BeforeEach
     void beforeEach() {
@@ -42,7 +45,7 @@ public class AnswerRepositoryTests {
     }
 
     private void createSampleData() {
-        QuestionRepositoryTests.createSampleData(questionRepository);
+        QuestionRepositoryTests.createSampleData(userService, questionRepository);
 
         // 관련 답변이 하나없는 상태에서 쿼리 발생
         Question q = questionRepository.findById(1L).get();
