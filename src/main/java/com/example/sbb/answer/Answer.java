@@ -31,5 +31,5 @@ public class Answer {
     private SiteUser author;
 
     @ManyToMany
-    Set<SiteUser> vote;
+    Set<SiteUser> voter;
 }

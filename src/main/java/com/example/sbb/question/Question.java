@@ -33,11 +33,11 @@ public class Question {
 
     @ManyToOne
     private SiteUser author;
+
+    @ManyToMany
+    Set<SiteUser> voter;
     public void addAnswer(Answer answer) {
         answer.setQuestion(this);
         getAnswerList().add(answer);
     }
-
-    @ManyToMany
-    Set<SiteUser> vote;
 }
