@@ -41,4 +41,7 @@ public class AnswerService {
     }
 
 
+    public void delete(Answer answer) {
+        answerRepository.delete(answer);
+    }
 }
