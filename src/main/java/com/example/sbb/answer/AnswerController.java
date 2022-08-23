@@ -86,5 +86,6 @@ public class AnswerController {
 
         return "redirect:/question/detail/%d".formatted(answer.getQuestion().getId());
     }
+
 }
 
