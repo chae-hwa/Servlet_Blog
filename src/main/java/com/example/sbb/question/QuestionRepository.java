@@ -23,4 +23,6 @@ public interface QuestionRepository extends JpaRepository<Question, Long>, Repos
     void truncate(); // 이거 지우면 안됨, truncateTable 하면 자동으로 이게 실행됨
 
     Page<Question> findBySubjectContains(String kw, Pageable pageable);
+
+    Page<Question> findBySubjectContainsOrContentContains(String kw, String kw_, Pageable pageable);
 }
