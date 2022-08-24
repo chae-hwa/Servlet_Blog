@@ -20,12 +20,17 @@ public class QuestionService {
 
     private final QuestionRepository questionRepository;
 
-    public Page<Question> getList(int page) {
+    public Page<Question> getList(String kw, int page) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createDate"));
 
         Pageable pageable = PageRequest.of(page,10, Sort.by(sorts));
-        return this.questionRepository.findAll(pageable);
+
+        if ( kw == null || kw.trim().length() == 0 ) { // 파라미터를 받지 않을 땐 전체 질문 리스트 출력
+            return questionRepository.findAll(pageable);
+        }
+
+        return questionRepository.findBySubjectContains(kw, pageable);
     }
 
     public Question getQuestion(long id){
