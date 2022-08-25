@@ -4,13 +4,20 @@
         layout:decorate="~{layout}">
 
 <div layout:fragment="content" class="container my-3">
+    <div class="row my-3">
+        <div class="col-6">
+            <a th:href="@{/question/create}" class="btn btn-outline-warning">질문 등록하기</a>
+        </div>
 
-    <a th:href="@{/question/create}" class="btn btn-outline-warning">질문 등록하기</a>
+        <div class="col-6">
+            <form class="input-group">
+                <input class="form-control" type="text" name="kw" placeholder="검색어를 입력해주세요." th:value="${param.kw}">
+                <button type="submit">검색</button>
+            </form>
+        </div>
+    </div>
 
-    <form>
-        <input type="text" name="kw" placeholder="검색어를 입력해주세요." th:value="${param.kw}">
-        <button type="submit">검색</button>
-    </form>
+
 
     <table class="table">
         <thead class="table-warning">
