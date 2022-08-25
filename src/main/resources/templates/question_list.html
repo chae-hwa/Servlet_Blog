@@ -4,6 +4,14 @@
         layout:decorate="~{layout}">
 
 <div layout:fragment="content" class="container my-3">
+
+    <a th:href="@{/question/create}" class="btn btn-outline-warning">질문 등록하기</a>
+
+    <form>
+        <input type="text" name="kw" placeholder="검색어를 입력해주세요." th:value="${param.kw}">
+        <button type="submit">검색</button>
+    </form>
+
     <table class="table">
         <thead class="table-warning">
         <tr class="text-center">
@@ -56,7 +64,6 @@
     </div>
     <!-- 페이징처리 끝 -->
 
-    <a th:href="@{/question/create}" class="btn btn-primary">질문 등록하기</a>
 </div>
 
 </html>
