@@ -19,7 +19,10 @@
                     <div class="mb-2">
                         <span th:if="${question.author != null}" th:text="${question.author.username}"></span>
                     </div>
-                    <div th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                    <div class="mb-2" th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                    <div>
+                        조회수 : [[${question.hitCount}]]
+                    </div>
                 </div>
             </div>
             <div class="my-3">
